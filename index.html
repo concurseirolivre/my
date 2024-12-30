@@ -133,9 +133,6 @@
     let barWidth = 0;
 
     heart.addEventListener('click', () => {
-        // Começa a música assim que a hemácia é clicada
-        audio.play();
-
         // Oculta a mensagem após o clique
         clickMessage.style.opacity = 0;
         setTimeout(() => {
@@ -150,18 +147,27 @@
                 setTimeout(() => {
                     bar.style.backgroundColor = 'black';
                 }, 1000);
+
+                // Exibe a mensagem de Feliz Aniversário
                 setTimeout(() => {
                     text.style.opacity = 1;
+                    // Começa a música no momento que a mensagem aparece
+                    audio.play();
                 }, 3000);
+
                 setTimeout(() => {
                     heart.style.display = 'none';
                 }, 2300);
+
+                // A mensagem some após 8 segundos
                 setTimeout(() => {
                     text.style.opacity = 0;
                 }, 8000);
+
+                // A imagem aparece após 15 segundos
                 setTimeout(() => {
                     imageContainer.style.display = 'block';
-                }, 15000);  // Exibe a imagem após 15 segundos
+                }, 15000);
             }
         }
     });
