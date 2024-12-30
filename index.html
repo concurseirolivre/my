@@ -91,6 +91,11 @@
         display: none;
         transition: opacity 5s ease;
     }
+    /* Ajusta a imagem para um tamanho proporcional */
+    #spotify-image {
+        max-width: 95%;
+        height: auto;
+    }
 </style>
 </head>
 <body>
@@ -102,12 +107,13 @@
     </div>
     <div id="text">Feliz Aniversário, Lucas. Desejo muitos anos e uma namorada para você</div>
     <div id="image-container">
+        <!-- Ajuste de tamanho da imagem -->
         <img id="spotify-image" src="NAND (1000 x 1000 px) (2).png" alt="Imagem">
     </div>
     <div id="audio-container">
-        <!-- Adiciona o áudio -->
-        <audio id="audio" controls>
-            <source src="Parabéns da Xuxa.mp3" type="audio/mp3">
+        <!-- Adiciona o áudio com autoplay -->
+        <audio id="audio" autoplay>
+            <source src="parabens-da-xuxa.mp3" type="audio/mp3">
             Seu navegador não suporta o elemento de áudio.
         </audio>
     </div>
@@ -122,6 +128,7 @@
     const text = document.getElementById('text');
     const imageContainer = document.getElementById('image-container');
     const audioContainer = document.getElementById('audio-container');
+    const audio = document.getElementById('audio');
 
     let barWidth = 0;
 
@@ -152,6 +159,7 @@
                 setTimeout(() => {
                     imageContainer.style.display = 'block';
                     audioContainer.style.display = 'block';
+                    audio.play(); // Garante que a música seja tocada
                 }, 12000);
             }
         }
