@@ -99,8 +99,8 @@
 </head>
 <body>
 <div id="canvas">
-    <img id="heart" src="coracao.png" alt="Coração">
-    <p id="click-message">Clique no coração</p>
+    <img id="heart" src="hemacia.png" alt="Hemácia">
+    <p id="click-message">Clique na hemácia</p>
     <div id="bar-container">
         <div id="bar"></div>
     </div>
