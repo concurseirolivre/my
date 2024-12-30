@@ -112,7 +112,7 @@
     </div>
     <div id="audio-container">
         <!-- Adiciona o áudio com autoplay, mas a música será iniciada no segundo 15 -->
-        <audio id="audio" autoplay>
+        <audio id="audio" preload="auto">
             <source src="Parabéns da Xuxa.mp3" type="audio/mp3">
             Seu navegador não suporta o elemento de áudio.
         </audio>
@@ -164,7 +164,7 @@
                 // Começa a música no segundo 15
                 setTimeout(() => {
                     audio.play();
-                }, 15000);
+                }, 15000); // Inicia a música após 15 segundos
             }
         }
     });
