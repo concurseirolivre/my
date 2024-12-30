@@ -9,12 +9,12 @@
         height: 100%;
         margin: 0;
         overflow: hidden;
-        font-family: "Ubuntu Sans", sans-serif; /* Define a fonte para todo o documento */
+        font-family: "Ubuntu Sans", sans-serif;
     }
     @font-face {
-        font-family: "Ubuntu Sans"; /* Define o nome da fonte */
-        src: url('ubuntu-sans.woff2') format('woff2'), /* Caminho para o arquivo da fonte */
-             url('ubuntu-sans.woff') format('woff'); /* Caminho para o arquivo da fonte */
+        font-family: "Ubuntu Sans";
+        src: url('ubuntu-sans.woff2') format('woff2'),
+             url('ubuntu-sans.woff') format('woff');
         font-weight: normal;
         font-style: normal;
     }
@@ -22,17 +22,29 @@
         position: relative;
         width: 100%;
         height: 100%;
-        background-color: white; /* Cor inicial de fundo */
-        transition: background-color 5s ease; /* Adiciona uma transição suave */
+        background-color: white;
+        transition: background-color 5s ease;
     }
     #heart {
         position: absolute;
-        top: calc(50% - 50px); /* Ajuste para centralizar o coração */
-        left: calc(50% - 50px); /* Ajuste para centralizar o coração */
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
         width: 100px;
         height: 100px;
-        z-index: 1; /* Garante que o coração esteja acima da barra */
-        transition: width 5s ease, height 5s ease; /* Adiciona transições suaves */
+        z-index: 1;
+        transition: width 5s ease, height 5s ease;
+    }
+    #click-message {
+        position: absolute;
+        top: calc(50% + 60px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 1s ease;
     }
     #bar-container {
         position: absolute;
@@ -41,8 +53,8 @@
         width: 0;
         height: 100%;
         overflow: hidden;
-        z-index: 0; /* Garante que a barra esteja abaixo do coração */
-        transition: width 1s ease; /* Adiciona uma transição suave */
+        z-index: 0;
+        transition: width 1s ease;
     }
     #bar {
         position: absolute;
@@ -50,7 +62,7 @@
         left: 0;
         width: 100%;
         height: 100%;
-        transition: background-color 5s ease; /* Adiciona uma transição suave */
+        transition: background-color 5s ease;
     }
     #text {
         position: absolute;
@@ -60,38 +72,35 @@
         text-align: center;
         font-size: 24px;
         color: white;
-        opacity: 0; /* Inicialmente transparente */
-        transition: opacity 5s ease; /* Adiciona uma transição suave */
+        opacity: 0;
+        transition: opacity 5s ease;
     }
     #image-container {
         position: absolute;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        display: none; /* Inicialmente oculto */
-        transition: opacity 5s ease; /* Adiciona uma transição suave */
+        display: none;
+        transition: opacity 5s ease;
     }
     #spotify-container {
         position: absolute;
         bottom: 0;
         left: 50%;
         transform: translateX(-50%);
-        display: none; /* Inicialmente oculto */
-        transition: opacity 5s ease; /* Adiciona uma transição suave */
+        display: none;
+        transition: opacity 5s ease;
     }
     #spotify-image {
-        max-width: 95%; /* Define a largura máxima da imagem */
-        height: auto; /* Altura automática */
-    }
-    #spotify-iframe {
-        max-width: auto; /* Define a largura máxima do iframe */
-        height: auto; /* Altura automática */
+        max-width: 95%;
+        height: auto;
     }
 </style>
 </head>
 <body>
 <div id="canvas">
     <img id="heart" src="coracao.png" alt="Coração">
+    <p id="click-message">Clique no coração</p>
     <div id="bar-container">
         <div id="bar"></div>
     </div>
@@ -100,12 +109,13 @@
         <img id="spotify-image" src="spotfy.png" alt="Spotify">
     </div>
     <div id="spotify-container">
-       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2UhHy49cbK6TGfTBYj5h8d?utm_source=generator&theme=0" width="100%" height="352" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2UhHy49cbK6TGfTBYj5h8d?utm_source=generator&theme=0" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
     </div>
 </div>
 
 <script>
     const heart = document.getElementById('heart');
+    const clickMessage = document.getElementById('click-message');
     const barContainer = document.getElementById('bar-container');
     const bar = document.getElementById('bar');
     const canvas = document.getElementById('canvas');
@@ -116,42 +126,39 @@
     let barWidth = 0;
 
     heart.addEventListener('click', () => {
+        // Oculta a mensagem após o clique
+        clickMessage.style.opacity = 0;
+        setTimeout(() => {
+            clickMessage.style.display = 'none';
+        }, 1000);
+
         if (barWidth < 100) {
             barWidth += 10;
             barContainer.style.width = barWidth + '%';
             updateBarColor();
             if (barWidth === 100) {
                 setTimeout(() => {
-                    bar.style.backgroundColor = 'black'; // Define o fundo preto
-                }, 1000); // Aguarda 1 segundo antes de mudar o fundo para preto
+                    bar.style.backgroundColor = 'black';
+                }, 1000);
                 setTimeout(() => {
-                    text.style.opacity = 1; // Torna o texto visível
-                }, 3000); // Aguarda 2 segundos antes de mostrar o texto
+                    text.style.opacity = 1;
+                }, 3000);
                 setTimeout(() => {
-                 
-                    heart.style.display = 'none'; // Oculta o coração
-                }, 2300); // Aguarda 7 segundos antes de desaparecer o texto e ocultar o coração
+                    heart.style.display = 'none';
+                }, 2300);
                 setTimeout(() => {
-                    text.style.opacity = 0; // Faz o texto desaparecer
-                    
-                }, 8000); // Aguarda 7 segundos antes de desaparecer o texto e ocultar o coração
+                    text.style.opacity = 0;
+                }, 8000);
                 setTimeout(() => {
-                    imageContainer.style.display = 'block'; // Mostra a imagem
-                    spotifyContainer.style.display = 'block'; // Mostra a faixa do Spotify
-                }, 12000); // Aguarda 12 segundos antes de mostrar a imagem e a faixa do Spotify
+                    imageContainer.style.display = 'block';
+                    spotifyContainer.style.display = 'block';
+                }, 12000);
             }
         }
     });
 
     function updateBarColor() {
-        const endThreshold = 90; // Porcentagem de preenchimento para começar a intensificar a cor
-        let redValue = Math.floor((barWidth / 100) * 255);
-        if (barWidth >= endThreshold) {
-            const remainingPercentage = 100 - barWidth;
-            const maxRed = 255;
-            const additionalRed = Math.floor((remainingPercentage / (100 - endThreshold)) * maxRed);
-            redValue += additionalRed;
-        }
+        const redValue = Math.floor((barWidth / 100) * 255);
         bar.style.backgroundColor = `rgba(${redValue}, 0, 0, 1)`;
     }
 </script>
