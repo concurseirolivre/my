@@ -111,7 +111,7 @@
         <img id="spotify-image" src="NAND (1000 x 1000 px) (2).png" alt="Imagem">
     </div>
     <div id="audio-container">
-        <!-- Adiciona o áudio com autoplay -->
+        <!-- Adiciona o áudio com autoplay, mas a música será iniciada no segundo 15 -->
         <audio id="audio" autoplay>
             <source src="Parabéns da Xuxa.mp3" type="audio/mp3">
             Seu navegador não suporta o elemento de áudio.
@@ -159,8 +159,12 @@
                 setTimeout(() => {
                     imageContainer.style.display = 'block';
                     audioContainer.style.display = 'block';
-                    audio.play(); // Garante que a música seja tocada
                 }, 12000);
+
+                // Começa a música no segundo 15
+                setTimeout(() => {
+                    audio.play();
+                }, 15000);
             }
         }
     });
