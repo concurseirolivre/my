@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>lucas brandiao</title>
+<style>
+    body, html {
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        font-family: "Ubuntu Sans", sans-serif;
+    }
+    @font-face {
+        font-family: "Ubuntu Sans";
+        src: url('ubuntu-sans.woff2') format('woff2'),
+             url('ubuntu-sans.woff') format('woff');
+        font-weight: normal;
+        font-style: normal;
+    }
+    #canvas {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        background-color: white;
+        transition: background-color 5s ease;
+    }
+    #heart {
+        position: absolute;
+        top: calc(50% - 50px);
+        left: calc(50% - 50px);
+        width: 100px;
+        height: 100px;
+        z-index: 1;
+        transition: width 5s ease, height 5s ease;
+    }
+    #click-message {
+        position: absolute;
+        top: calc(50% + 60px);
+        left: 50%;
+        transform: translateX(-50%);
+        font-size: 18px;
+        color: #333;
+        text-align: center;
+        z-index: 1;
+        opacity: 1;
+        transition: opacity 1s ease;
+    }
+    #bar-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 0;
+        height: 100%;
+        overflow: hidden;
+        z-index: 0;
+        transition: width 1s ease;
+    }
+    #bar {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        transition: background-color 5s ease;
+    }
+    #text {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        opacity: 0;
+        transition: opacity 5s ease;
+    }
+    #image-container {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        display: none;
+        transition: opacity 5s ease;
+    }
+    #spotify-container {
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        display: none;
+        transition: opacity 5s ease;
+    }
+    #spotify-image {
+        max-width: 95%;
+        height: auto;
+    }
+</style>
+</head>
+<body>
+<div id="canvas">
+    <img id="heart" src="hemacia.png" alt="Hemácia">
+    <p id="click-message">Clique na hemácia</p>
+    <div id="bar-container">
+        <div id="bar"></div>
+    </div>
+    <div id="text">Parabéns, Lucas. Desejo muitos anos e uma namorada para você</div>
+    <div id="image-container">
+        <img id="spotify-image" src="spotfy.png" alt="Spotify">
+    </div>
+    <div id="spotify-container">
+       <iframe style="border-radius:12px" src="https://open.spotify.com/embed/track/2UhHy49cbK6TGfTBYj5h8d?utm_source=generator&theme=0" width="100%" height="200" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+    </div>
+</div>
+
+<script>
+    const heart = document.getElementById('heart');
+    const clickMessage = document.getElementById('click-message');
+    const barContainer = document.getElementById('bar-container');
+    const bar = document.getElementById('bar');
+    const canvas = document.getElementById('canvas');
+    const text = document.getElementById('text');
+    const imageContainer = document.getElementById('image-container');
+    const spotifyContainer = document.getElementById('spotify-container');
+
+    let barWidth = 0;
+
+    heart.addEventListener('click', () => {
+        // Oculta a mensagem após o clique
+        clickMessage.style.opacity = 0;
+        setTimeout(() => {
+            clickMessage.style.display = 'none';
+        }, 1000);
+
+        if (barWidth < 100) {
+            barWidth += 10;
+            barContainer.style.width = barWidth + '%';
+            updateBarColor();
+            if (barWidth === 100) {
+                setTimeout(() => {
+                    bar.style.backgroundColor = 'black';
+                }, 1000);
+                setTimeout(() => {
+                    text.style.opacity = 1;
+                }, 3000);
+                setTimeout(() => {
+                    heart.style.display = 'none';
+                }, 2300);
+                setTimeout(() => {
+                    text.style.opacity = 0;
+                }, 8000);
+                setTimeout(() => {
+                    imageContainer.style.display = 'block';
+                    spotifyContainer.style.display = 'block';
+                }, 12000);
+            }
+        }
+    });
+
+    function updateBarColor() {
+        const redValue = Math.floor((barWidth / 100) * 255);
+        bar.style.backgroundColor = `rgba(${redValue}, 0, 0, 1)`;
+    }
+</script>
+</body>
+</html>
